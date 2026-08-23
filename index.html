@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem Anime Free</title>
+    <style>
+        :root {
+            --bg-color: #0f0f16;
+            --card-bg: #1a1a24;
+            --primary: #ff0055;
+            --primary-hover: #ff3377;
+            --text: #ffffff;
+        }
+        body {
+            margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color); color: var(--text);
+        }
+        header {
+            text-align: center; padding: 40px 20px;
+            background: linear-gradient(180deg, #1a1a24 0%, transparent 100%);
+        }
+        header h1 {
+            margin: 0; font-size: 3rem; color: var(--primary);
+            text-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        .container {
+            max-width: 1200px; margin: 0 auto; padding: 20px;
+        }
+        .anime-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .anime-card {
+            background-color: var(--card-bg); border-radius: 12px;
+            overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .anime-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 0, 85, 0.3);
+        }
+        .anime-image {
+            width: 100%; height: 350px; object-fit: cover;
+        }
+        .anime-info {
+            padding: 15px; text-align: center;
+        }
+        .anime-title {
+            margin: 0 0 15px 0; font-size: 1.2rem;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .btn-watch {
+            display: inline-block; width: 100%; padding: 10px 0;
+            background-color: var(--primary); color: white;
+            text-decoration: none; border-radius: 8px; font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .btn-watch:hover {
+            background-color: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Xem Anime Free</h1>
+        <p>Thế giới Anime trong tầm tay bạn</p>
+    </header>
+
+    <div class="container">
+        <div class="anime-grid" id="anime-list">
+            <!-- Phim sẽ được đổ vào đây bằng Javascript -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
