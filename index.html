@@ -3,78 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xem Anime Free</title>
+    <title>Anime Universe | Xem Anime Miễn Phí</title>
+    <!-- Import font chữ hiện đại từ Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #0f0f16;
-            --card-bg: #1a1a24;
-            --primary: #ff0055;
-            --primary-hover: #ff3377;
-            --text: #ffffff;
+        /* Cài đặt mặc định */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
+
+        /* Hình nền Anime và lớp phủ tối màu */
         body {
-            margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color); color: var(--text);
+            /* Bạn có thể thay link ảnh nền anime khác vào đây */
+            background-image: url('https://w.wallhaven.cc/full/ex/wallhaven-ex9gwo.png'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
         }
+
+        /* Lớp phủ đen mờ để chữ dễ đọc hơn trên nền ảnh */
+        .overlay {
+            background: rgba(10, 10, 15, 0.7);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* Header (Tiêu đề trang) */
         header {
-            text-align: center; padding: 40px 20px;
-            background: linear-gradient(180deg, #1a1a24 0%, transparent 100%);
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeInDown 1s ease-out;
         }
+
         header h1 {
-            margin: 0; font-size: 3rem; color: var(--primary);
-            text-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
-            text-transform: uppercase; letter-spacing: 2px;
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            /* Hiệu ứng chữ màu Gradient */
+            background: linear-gradient(45deg, #00f2fe, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(79, 172, 254, 0.4);
+            letter-spacing: 3px;
         }
+
+        header p {
+            font-size: 1.2rem;
+            color: #d1d5db;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* Container chứa các thẻ phim */
         .container {
-            max-width: 1200px; margin: 0 auto; padding: 20px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
+
+        /* Lưới hiển thị (Grid) */
         .anime-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
         }
+
+        /* Thẻ phim (Phong cách kính mờ - Glassmorphism) */
         .anime-card {
-            background-color: var(--card-bg); border-radius: 12px;
-            overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
         }
+
         .anime-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(255, 0, 85, 0.3);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 242, 254, 0.2);
+            border-color: rgba(0, 242, 254, 0.4);
         }
+
+        /* Ảnh bìa phim */
+        .anime-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+
         .anime-image {
-            width: 100%; height: 350px; object-fit: cover;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
+
+        .anime-card:hover .anime-image {
+            transform: scale(1.1);
+        }
+
+        /* Phần thông tin dưới ảnh */
         .anime-info {
-            padding: 15px; text-align: center;
+            padding: 20px;
+            text-align: center;
         }
+
         .anime-title {
-            margin: 0 0 15px 0; font-size: 1.2rem;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ffffff;
+            /* Cắt chữ nếu quá dài */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
+
+        /* Nút Xem Ngay (Neon Effect) */
         .btn-watch {
-            display: inline-block; width: 100%; padding: 10px 0;
-            background-color: var(--primary); color: white;
-            text-decoration: none; border-radius: 8px; font-weight: bold;
-            transition: background-color 0.2s;
+            display: inline-block;
+            width: 100%;
+            padding: 12px 0;
+            background: transparent;
+            color: #00f2fe;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border: 2px solid #00f2fe;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2), inset 0 0 10px rgba(0, 242, 254, 0.1);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
+
         .btn-watch:hover {
-            background-color: var(--primary-hover);
+            background: #00f2fe;
+            color: #000;
+            box-shadow: 0 0 20px #00f2fe, 0 0 40px #00f2fe;
+        }
+
+        /* Hiệu ứng loading */
+        #loading {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #00f2fe;
+            margin-top: 50px;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive cho điện thoại */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            .anime-image-wrapper { height: 300px; }
         }
     </style>
 </head>
 <body>
+    <div class="overlay">
+        <header>
+            <h1>Anime Universe</h1>
+            <p>Trải nghiệm không giới hạn thế giới Anime</p>
+        </header>
 
-    <header>
-        <h1>Xem Anime Free</h1>
-        <p>Thế giới Anime trong tầm tay bạn</p>
-    </header>
-
-    <div class="container">
-        <div class="anime-grid" id="anime-list">
-            <!-- Phim sẽ được đổ vào đây bằng Javascript -->
+        <div class="container">
+            <div id="loading">Đang tải dữ liệu từ Google Sheets...</div>
+            <div class="anime-grid" id="anime-list">
+                <!-- Javascript sẽ tự động điền phim vào đây -->
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // === BẠN HÃY DÁN LINK CSV CỦA GOOGLE SHEET VÀO GIỮA 2 DẤU NGOẶC KÉP BÊN DƯỚI ===
+        const SHEET_CSV_URL = 'https://script.google.com/macros/s/AKfycbzQzZWh4xm8X_t2ipchxipjKHmV74zBnlkc1v3Syqq5D3jDN4RgsN3xp7WVTLMKuCE/exec';
+
+        // Hàm xử lý dữ liệu CSV
+        function parseCSV(csv) {
+            const rows = csv.split('\n');
+            const data = [];
+            // Bỏ qua hàng 0 (tiêu đề cột), bắt đầu từ hàng 1
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i].trim();
+                if (row) {
+                    // Tách dữ liệu bằng dấu phẩy
+                    const cols = row.split(',');
+                    if(cols.length >= 3) {
+                        data.push({
+                            title: cols[0].trim(),
+                            image: cols[1].trim(),
+                            link: cols[2].trim()
+                        });
+                    }
+                }
+            }
+            return data;
+        }
+
+        // Tải dữ liệu từ web
+        fetch(SHEET_CSV_URL)
+            .then(response => {
+                if (!response.ok) throw new Error('Không thể tải dữ liệu');
+                return response.text();
+            })
+            .then(csvText => {
+                const animeData = parseCSV(csvText);
+                const animeList = document.getElementById('anime-list');
+                const loading = document.getElementById('loading');
+                
+                // Ẩn chữ "Đang tải"
+                loading.style.display = 'none';
+
+                // Tạo thẻ phim cho từng dòng dữ liệu
+                animeData.forEach((anime, index) => {
+                    // Tính toán độ trễ animation để các thẻ hiện lên lần lượt
+                    const delay = index * 0.1;
+                    
+                    const card = `
+                        <div class="anime-card" style="animation-delay: ${delay}s">
+                            <div class="anime-image-wrapper">
+                                <img src="${anime.image}" alt="${anime.title}" class="anime-image" onerror="this.src='https://placehold.co/400x600/1a1a24/00f2fe?text=No+Image'">
+                            </div>
+                            <div class="anime-info">
+                                <h3 class="anime-title" title="${anime.title}">${anime.title}</h3>
+                                <a href="${anime.link}" class="btn-watch" target="_blank">▶ Xem Ngay</a>
+                            </div>
+                        </div>
+                    `;
+                    animeList.innerHTML += card;
+                });
+            })
+            .catch(error => {
+                document.getElementById('loading').innerHTML = `
+                    <span style="color: #ff3377;">⚠️ Lỗi: Chưa điền link CSV hoặc link bị sai.</span><br>
+                    <span style="font-size: 1rem; color: #fff;">Hãy chắc chắn bạn đã điền link CSV vào biến SHEET_CSV_URL trong code.</span>
+                `;
+                console.error(error);
+            });
+    </script>
 </body>
 </html>
